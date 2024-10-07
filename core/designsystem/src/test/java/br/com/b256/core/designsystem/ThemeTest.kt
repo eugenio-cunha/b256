@@ -23,7 +23,7 @@ class ThemeTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun darkThemeFalse_androidThemeFalse() {
+    fun dark_theme_false() {
         composeTestRule.setContent {
             B256Theme(
                 darkTheme = false,
@@ -40,7 +40,7 @@ class ThemeTest {
     }
 
     @Test
-    fun darkThemeTrue_androidThemeFalse() {
+    fun dark_theme_true() {
         composeTestRule.setContent {
             B256Theme(
                 darkTheme = true,
