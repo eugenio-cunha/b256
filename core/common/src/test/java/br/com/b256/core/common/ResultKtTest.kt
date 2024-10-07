@@ -1,8 +1,6 @@
 package br.com.b256.core.common
 
 import app.cash.turbine.test
-import br.com.b256.core.common.result.asResult
-import br.com.b256.core.common.result.Result
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.junit.Test

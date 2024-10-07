@@ -1,4 +1,4 @@
-package br.com.b256.core.common.result
+package br.com.b256.core.common
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
