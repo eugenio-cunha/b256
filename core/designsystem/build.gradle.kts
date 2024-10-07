@@ -5,6 +5,9 @@ plugins {
 
 android {
     namespace = "br.com.b256.core.designsystem"
+    defaultConfig {
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
 }
 
 dependencies {
@@ -21,8 +24,7 @@ dependencies {
 
     testImplementation(libs.androidx.compose.ui.test)
     testImplementation(libs.androidx.compose.ui.testManifest)
-
     testImplementation(libs.hilt.android.testing)
-
+    testImplementation(libs.robolectric)
     androidTestImplementation(libs.bundles.androidx.compose.ui.test)
 }
