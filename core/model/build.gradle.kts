@@ -4,4 +4,7 @@ plugins {
 
 dependencies {
     api(libs.kotlinx.datetime)
+
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotlinx.coroutines.test)
 }
