@@ -6,7 +6,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class ResultKtTest {
+class ResourceKtTest {
     @Test
     fun result_catches_errors() = runTest {
         flow {
@@ -15,16 +15,16 @@ class ResultKtTest {
         }
             .asResult()
             .test {
-                assertEquals(Result.Loading, awaitItem())
-                assertEquals(Result.Success(1), awaitItem())
+                assertEquals(Resource.Loading, awaitItem())
+                assertEquals(Resource.Success(1), awaitItem())
 
                 when (val errorResult = awaitItem()) {
-                    is Result.Error -> assertEquals(
+                    is Resource.Error -> assertEquals(
                         "Test Done",
                         errorResult.exception.message,
                     )
-                    Result.Loading,
-                    is Result.Success,
+                    Resource.Loading,
+                    is Resource.Success,
                         -> throw IllegalStateException(
                         "The flow should have emitted an Error Result",
                     )
