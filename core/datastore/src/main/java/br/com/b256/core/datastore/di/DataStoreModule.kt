@@ -13,14 +13,14 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import jakarta.inject.Singleton
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object DataStoreModule {
     @Provides
     @Singleton
-    internal fun provideDataStore(
+    internal fun providesDataStore(
         @ApplicationContext context: Context,
     ): DataStore<Preferences> =
         PreferenceDataStoreFactory.create(
@@ -35,7 +35,7 @@ object DataStoreModule {
 
     @Provides
     @Singleton
-    internal fun providePreference(dataStore: DataStore<Preferences>): Preference {
+    internal fun providesPreference(dataStore: DataStore<Preferences>): Preference {
         return PreferenceManager(dataStore = dataStore)
     }
 
