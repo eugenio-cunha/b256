@@ -7,9 +7,9 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
 class GetPingUseCase @Inject constructor(
-    private val repository: NetworkRepository
+    private val repository: NetworkRepository,
 ) {
-    suspend operator fun invoke(): Flow<Resource<Pong>>{
+    suspend operator fun invoke(): Flow<Resource<Pong>> {
         return repository.ping()
     }
 }
