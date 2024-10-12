@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetSettingsUseCase @Inject constructor(
     private val repository: SettingsRepository,
 ) {
-    suspend operator fun invoke(): Flow<Settings> {
+    operator fun invoke(): Flow<Settings> {
         return repository.getSettings()
     }
 }

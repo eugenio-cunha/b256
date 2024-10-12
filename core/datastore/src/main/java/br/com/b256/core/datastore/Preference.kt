@@ -4,7 +4,7 @@ import br.com.b256.core.model.Settings
 import kotlinx.coroutines.flow.Flow
 
 interface Preference {
-    suspend fun setSettings(value: Settings)
+    fun getSettings(): Flow<Settings>
 
-    suspend fun getSettings(): Flow<Settings>
+    suspend fun setSettings(value: Settings)
 }

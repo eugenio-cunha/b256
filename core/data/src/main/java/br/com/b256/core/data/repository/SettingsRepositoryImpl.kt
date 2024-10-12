@@ -8,7 +8,7 @@ import javax.inject.Inject
 class SettingsRepositoryImpl @Inject constructor(
     private val preference: Preference
 ): SettingsRepository{
-    override suspend fun getSettings(): Flow<Settings> {
+    override fun getSettings(): Flow<Settings> {
         return preference.getSettings()
     }
 

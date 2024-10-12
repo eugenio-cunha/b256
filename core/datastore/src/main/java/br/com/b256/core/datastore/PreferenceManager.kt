@@ -14,20 +14,19 @@ import javax.inject.Inject
 class PreferenceManager @Inject constructor(
     private val dataStore: DataStore<Preferences>,
 ) : Preference {
-
-    override suspend fun setSettings(value: Settings) {
-        dataStore.edit {
-            it[Keys.SETTINGS_BIOMETRICS] = value.toString()
-        }
-    }
-
-    override suspend fun getSettings(): Flow<Settings> {
+    override fun getSettings(): Flow<Settings> {
         return dataStore.data.catch {
             emit(emptyPreferences())
         }.map {
             Settings(
                 biometrics = it[Keys.SETTINGS_BIOMETRICS].toBoolean()
             )
+        }
+    }
+
+    override suspend fun setSettings(value: Settings) {
+        dataStore.edit {
+            it[Keys.SETTINGS_BIOMETRICS] = value.toString()
         }
     }
 
