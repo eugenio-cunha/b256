@@ -1,10 +1,10 @@
 package br.com.b256.core.datastore
 
-import br.com.b256.core.model.Theme
+import br.com.b256.core.model.Settings
 import kotlinx.coroutines.flow.Flow
 
 interface Preference {
-    val theme: Flow<Theme>
+    suspend fun setSettings(value: Settings)
 
-    suspend fun setTheme(value: Theme)
+    suspend fun getSettings(): Flow<Settings>
 }
