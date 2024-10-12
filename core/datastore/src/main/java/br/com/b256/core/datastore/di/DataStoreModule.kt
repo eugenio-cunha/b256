@@ -20,7 +20,7 @@ import jakarta.inject.Singleton
 object DataStoreModule {
     @Provides
     @Singleton
-    fun provideDataStore(
+    internal fun provideDataStore(
         @ApplicationContext context: Context,
     ): DataStore<Preferences> =
         PreferenceDataStoreFactory.create(
@@ -35,7 +35,7 @@ object DataStoreModule {
 
     @Provides
     @Singleton
-    fun providePreference(dataStore: DataStore<Preferences>): Preference {
+    internal fun providePreference(dataStore: DataStore<Preferences>): Preference {
         return PreferenceManager(dataStore = dataStore)
     }
 
