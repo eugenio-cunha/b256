@@ -37,3 +37,5 @@ include(":core:model")
 include(":core:network")
 include(":core:ui")
 include(":core:notification")
+
+include(":feature:home")
