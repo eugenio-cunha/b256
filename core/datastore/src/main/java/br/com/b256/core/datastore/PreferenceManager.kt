@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import br.com.b256.core.model.Settings
+import br.com.b256.core.model.Theme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -19,18 +20,21 @@ class PreferenceManager @Inject constructor(
             emit(emptyPreferences())
         }.map {
             Settings(
-                biometrics = it[Keys.SETTINGS_BIOMETRICS].toBoolean()
+                biometrics = it[Keys.SETTINGS_BIOMETRICS].toBoolean(),
+                theme = Theme.from(value = it[Keys.SETTINGS_THEME].orEmpty()),
             )
         }
     }
 
     override suspend fun setSettings(value: Settings) {
         dataStore.edit {
-            it[Keys.SETTINGS_BIOMETRICS] = value.toString()
+            it[Keys.SETTINGS_BIOMETRICS] = value.biometrics.toString()
+            it[Keys.SETTINGS_THEME] = value.theme.value
         }
     }
 
     private object Keys {
         val SETTINGS_BIOMETRICS = stringPreferencesKey("settings_biometrics")
+        val SETTINGS_THEME = stringPreferencesKey("settings_theme")
     }
 }
