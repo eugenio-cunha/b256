@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.Color
 /**
  * B256 colors.
  */
-internal val lightPrimary = Color(0xFF2A5BB1)
+internal val lightPrimary = Color(0xff00B4EA)
 internal val lightOnPrimary = Color(0xFFFFFFFF)
 internal val lightPrimaryContainer = Color(0xFFD9E2FF)
 internal val lightOnPrimaryContainer = Color(0xFF001A43)
