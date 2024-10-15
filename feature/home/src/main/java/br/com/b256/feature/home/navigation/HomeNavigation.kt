@@ -5,13 +5,15 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import br.com.b256.feature.home.HomeScreen
+import kotlinx.serialization.Serializable
 
-const val HOME_ROUTE = "home_route"
+@Serializable
+data object HomeRoute
 
-fun NavController.navigateToHome(options: NavOptions? = null) = navigate(HOME_ROUTE, options)
+fun NavController.navigateToHome(options: NavOptions? = null) = navigate(route = HomeRoute, options)
 
 fun NavGraphBuilder.homeScreen() {
-    composable(route = HOME_ROUTE) {
+    composable<HomeRoute> {
         HomeScreen()
     }
 }

@@ -52,6 +52,10 @@ android {
 
 dependencies {
     implementation(projects.core.designsystem)
+    implementation(projects.core.domain)
+    implementation(projects.core.model)
+
+    implementation(projects.feature.home)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3.adaptive)
