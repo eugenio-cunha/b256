@@ -19,7 +19,11 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.adaptive.WindowAdaptiveInfo
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,6 +34,7 @@ import br.com.b256.core.designsystem.component.B256GradientBackground
 import br.com.b256.core.designsystem.component.B256TopAppBar
 import br.com.b256.core.designsystem.theme.GradientColors
 import br.com.b256.core.designsystem.theme.LocalGradientColors
+import br.com.b256.feature.settings.SettingsDialog
 import br.com.b256.navigation.B256Destination
 import br.com.b256.navigation.B256NavHost
 
@@ -41,6 +46,8 @@ fun B256App(
 ) {
     val shouldShowGradientBackground =
         appState.currentTopLevelDestination == B256Destination.HOME
+
+    var showSettingsDialog by rememberSaveable { mutableStateOf(false) }
 
     B256Background(modifier = modifier) {
         B256GradientBackground(
@@ -55,6 +62,8 @@ fun B256App(
                 modifier = modifier,
                 appState = appState,
                 snackbarHostState = snackbarHostState,
+                showSettingsDialog = showSettingsDialog,
+                onSettingsDismissed = { showSettingsDialog = false },
                 windowAdaptiveInfo = windowAdaptiveInfo,
             )
         }
@@ -67,8 +76,16 @@ internal fun B256App(
     modifier: Modifier = Modifier,
     appState: B256AppState,
     snackbarHostState: SnackbarHostState,
+    showSettingsDialog: Boolean,
+    onSettingsDismissed: () -> Unit,
     windowAdaptiveInfo: WindowAdaptiveInfo = currentWindowAdaptiveInfo(),
 ) {
+    if (showSettingsDialog) {
+        SettingsDialog(
+            onDismiss = { onSettingsDismissed() },
+        )
+    }
+
     Scaffold(
         modifier = modifier.semantics {
             testTagsAsResourceId = true

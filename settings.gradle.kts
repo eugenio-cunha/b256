@@ -39,3 +39,4 @@ include(":core:ui")
 include(":core:notification")
 
 include(":feature:home")
+include(":feature:settings")
