@@ -57,7 +57,7 @@ fun SettingsDialog(
     val configuration = LocalConfiguration.current
 
     AlertDialog(
-        modifier = Modifier.widthIn(max = configuration.screenWidthDp.dp - 80.dp),
+        modifier = Modifier.widthIn(max = configuration.screenWidthDp.dp - 40.dp),
         properties = DialogProperties(usePlatformDefaultWidth = false),
         onDismissRequest = { onDismiss() },
         title = {
