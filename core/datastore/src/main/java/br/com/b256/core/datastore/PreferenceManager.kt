@@ -33,6 +33,20 @@ class PreferenceManager @Inject constructor(
         }
     }
 
+    override fun getTheme(): Flow<Theme> {
+        return dataStore.data.catch {
+            emit(emptyPreferences())
+        }.map {
+            Theme.from(value = it[Keys.SETTINGS_THEME].orEmpty())
+        }
+    }
+
+    override suspend fun setTheme(value: Theme) {
+        dataStore.edit {
+            it[Keys.SETTINGS_THEME] = value.value
+        }
+    }
+
     private object Keys {
         val SETTINGS_BIOMETRICS = stringPreferencesKey("settings_biometrics")
         val SETTINGS_THEME = stringPreferencesKey("settings_theme")
