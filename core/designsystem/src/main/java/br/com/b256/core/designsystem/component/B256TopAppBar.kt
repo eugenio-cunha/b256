@@ -11,6 +11,7 @@ import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import br.com.b256.core.designsystem.icon.B256Icons
@@ -19,12 +20,31 @@ import br.com.b256.core.designsystem.icon.B256Icons
 @Composable
 fun B256TopAppBar(
     modifier: Modifier = Modifier,
-    @StringRes titleRes: Int,
+    @StringRes title: Int,
     colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
+    actionIcon: ImageVector? = null,
+    onActionClick: (() -> Unit)? = null,
     onNavigationClick: () -> Unit = {},
-){
+) {
     CenterAlignedTopAppBar(
-        title = { Text(text = stringResource(id = titleRes)) },
+        modifier = modifier.testTag("B256TopAppBar"),
+        title = {
+            Text(
+                text = stringResource(id = title),
+                style = MaterialTheme.typography.titleLarge,
+            )
+        },
+        colors = colors,
+        actions = {
+            if (actionIcon != null && onActionClick != null)
+                IconButton(onClick = onActionClick) {
+                    Icon(
+                        imageVector = actionIcon,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurface,
+                    )
+                }
+        },
         navigationIcon = {
             IconButton(onClick = onNavigationClick) {
                 Icon(
@@ -34,7 +54,5 @@ fun B256TopAppBar(
                 )
             }
         },
-        colors = colors,
-        modifier = modifier.testTag("B256TopAppBar"),
     )
 }

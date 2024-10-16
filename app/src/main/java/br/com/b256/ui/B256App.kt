@@ -32,6 +32,7 @@ import androidx.compose.ui.semantics.testTagsAsResourceId
 import br.com.b256.core.designsystem.component.B256Background
 import br.com.b256.core.designsystem.component.B256GradientBackground
 import br.com.b256.core.designsystem.component.B256TopAppBar
+import br.com.b256.core.designsystem.icon.B256Icons
 import br.com.b256.core.designsystem.theme.GradientColors
 import br.com.b256.core.designsystem.theme.LocalGradientColors
 import br.com.b256.feature.settings.SettingsDialog
@@ -64,6 +65,7 @@ fun B256App(
                 snackbarHostState = snackbarHostState,
                 showSettingsDialog = showSettingsDialog,
                 onSettingsDismissed = { showSettingsDialog = false },
+                onTopAppBarActionClick = { showSettingsDialog = true },
                 windowAdaptiveInfo = windowAdaptiveInfo,
             )
         }
@@ -78,6 +80,7 @@ internal fun B256App(
     snackbarHostState: SnackbarHostState,
     showSettingsDialog: Boolean,
     onSettingsDismissed: () -> Unit,
+    onTopAppBarActionClick: () -> Unit,
     windowAdaptiveInfo: WindowAdaptiveInfo = currentWindowAdaptiveInfo(),
 ) {
     if (showSettingsDialog) {
@@ -111,11 +114,13 @@ internal fun B256App(
             if (destination != null) {
                 shouldShowTopAppBar = true
                 B256TopAppBar(
-                    titleRes = destination.titleTextId,
+                    title = destination.titleTextId,
                     colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                         containerColor = Color.Transparent,
                     ),
-                    onNavigationClick = { appState.navigateToHome() },
+                    actionIcon = B256Icons.More,
+                    onActionClick = onTopAppBarActionClick,
+                    onNavigationClick = appState::navigateToHome,
                 )
             }
 
