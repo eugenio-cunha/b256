@@ -1,31 +1,31 @@
 package br.com.b256.core.common.monitor
 
-import android.content.Context
-import br.com.b256.core.common.Dispatcher
-import br.com.b256.core.common.B256Dispatchers.IO
-import br.com.b256.core.common.di.ApplicationScope
-import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.datetime.TimeZone
-import javax.inject.Inject
-import javax.inject.Singleton
 import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import androidx.tracing.trace
+import br.com.b256.core.common.B256Dispatchers.IO
+import br.com.b256.core.common.Dispatcher
+import br.com.b256.core.common.di.ApplicationScope
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.shareIn
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toKotlinTimeZone
 import java.time.ZoneId
+import javax.inject.Inject
+import javax.inject.Singleton
 
 @Singleton
 internal class ManagerTimeZoneMonitor @Inject constructor(

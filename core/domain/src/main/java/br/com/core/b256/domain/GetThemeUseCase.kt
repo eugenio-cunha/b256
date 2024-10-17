@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetThemeUseCase @Inject constructor(
     private val repository: SettingsRepository,
 ) {
-    operator fun invoke() : Flow<Theme> {
+    operator fun invoke(): Flow<Theme> {
         return repository.getTheme()
     }
 }

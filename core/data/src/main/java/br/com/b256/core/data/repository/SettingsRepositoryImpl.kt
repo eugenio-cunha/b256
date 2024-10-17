@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class SettingsRepositoryImpl @Inject constructor(
-    private val preference: Preference
-): SettingsRepository{
+    private val preference: Preference,
+) : SettingsRepository {
     override fun getSettings(): Flow<Settings> {
         return preference.getSettings()
     }
@@ -17,7 +17,7 @@ class SettingsRepositoryImpl @Inject constructor(
         preference.setSettings(value = value)
     }
 
-    override fun getTheme() : Flow<Theme> {
+    override fun getTheme(): Flow<Theme> {
         return preference.getTheme()
     }
 

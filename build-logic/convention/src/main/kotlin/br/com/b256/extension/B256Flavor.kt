@@ -10,23 +10,23 @@ enum class FlavorDimension {
     contentType
 }
 
-// The content for the app can either come from local static data which is useful for demo
-// purposes, or from a production backend server which supplies up-to-date, real content.
-// These two product flavors reflect this behaviour.
+// O conteúdo do aplicativo pode vir de dados estáticos locais, que são úteis para fins de
+// demonstração ou de um servidor de backend de produção que fornece conteúdo real e atualizado.
+// Esses duas versões de produtos refletem esse comportamento.
 @Suppress("EnumEntryName")
-enum class NiaFlavor(val dimension: FlavorDimension, val applicationIdSuffix: String? = null) {
-    demo(FlavorDimension.contentType, applicationIdSuffix = ".demo"),
-    prod(FlavorDimension.contentType)
+enum class B256Flavor(val dimension: FlavorDimension, val applicationIdSuffix: String? = null) {
+    develop(FlavorDimension.contentType, applicationIdSuffix = ".develop"),
+    production(FlavorDimension.contentType)
 }
 
 fun configureFlavors(
     commonExtension: CommonExtension<*, *, *, *, *, *>,
-    flavorConfigurationBlock: ProductFlavor.(flavor: NiaFlavor) -> Unit = {}
+    flavorConfigurationBlock: ProductFlavor.(flavor: B256Flavor) -> Unit = {}
 ) {
     commonExtension.apply {
         flavorDimensions += FlavorDimension.contentType.name
         productFlavors {
-            NiaFlavor.values().forEach {
+            B256Flavor.values().forEach {
                 create(it.name) {
                     dimension = it.dimension.name
                     flavorConfigurationBlock(this, it)

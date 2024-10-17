@@ -8,6 +8,6 @@ import javax.inject.Inject
 
 class NetworkRepositoryImpl @Inject constructor(
     private val service: Service,
-) : NetworkRepository{
+) : NetworkRepository {
     override suspend fun ping(): Flow<Resource<Pong>> = service.ping()
 }

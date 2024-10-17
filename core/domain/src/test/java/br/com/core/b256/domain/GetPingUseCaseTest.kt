@@ -1,8 +1,7 @@
 package br.com.core.b256.domain
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class GetPingUseCaseTest {
     @Test

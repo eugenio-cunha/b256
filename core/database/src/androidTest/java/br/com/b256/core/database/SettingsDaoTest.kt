@@ -8,10 +8,9 @@ import br.com.b256.core.database.model.SettingsEntity
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
+import org.junit.Test
 
 class SettingsDaoTest {
     private lateinit var settingsDao: SettingsDao
@@ -22,7 +21,7 @@ class SettingsDaoTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(
             context = context,
-            klass = RoomDatabase::class.java
+            klass = RoomDatabase::class.java,
         ).build()
         settingsDao = db.settings()
     }

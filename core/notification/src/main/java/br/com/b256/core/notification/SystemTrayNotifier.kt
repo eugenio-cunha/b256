@@ -1,21 +1,21 @@
 package br.com.b256.core.notification
 
-import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
 import android.Manifest.permission
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
-import javax.inject.Inject
-import javax.inject.Singleton
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import androidx.core.app.ActivityCompat.checkSelfPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.net.toUri
 import br.com.b256.core.model.Notification
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import android.app.Notification as AndroidNotification
 
 private const val MAX_NUM_NOTIFICATIONS = 5

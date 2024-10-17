@@ -1,7 +1,7 @@
 package br.com.b256.core.common.di
 
-import br.com.b256.core.common.Dispatcher
 import br.com.b256.core.common.B256Dispatchers.Default
+import br.com.b256.core.common.Dispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

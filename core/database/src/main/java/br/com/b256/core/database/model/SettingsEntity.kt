@@ -10,5 +10,5 @@ data class SettingsEntity(
     val id: String,
 
     @ColumnInfo(name = "biometrics")
-    val biometrics: Boolean
+    val biometrics: Boolean,
 )

@@ -11,11 +11,11 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import kotlinx.serialization.json.Json
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -54,7 +54,7 @@ internal object NetworkModule {
         // Solicitamos especificamente dagger.Lazy aqui, para que ele não seja instanciado a partir do Dagger.
         okHttpCallFactory: dagger.Lazy<Call.Factory>,
         @ApplicationContext application: Context,
-    ): ImageLoader = trace("NiaImageLoader") {
+    ): ImageLoader = trace("B256ImageLoader") {
         ImageLoader.Builder(application)
             .callFactory { okHttpCallFactory.get() }
             .components { add(SvgDecoder.Factory()) }

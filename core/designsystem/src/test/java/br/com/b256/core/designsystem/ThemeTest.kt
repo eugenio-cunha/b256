@@ -10,10 +10,9 @@ import br.com.b256.core.designsystem.theme.GradientColors
 import br.com.b256.core.designsystem.theme.LightDefaultColorScheme
 import br.com.b256.core.designsystem.theme.LocalBackgroundTheme
 import br.com.b256.core.designsystem.theme.LocalGradientColors
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 

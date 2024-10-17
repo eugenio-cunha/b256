@@ -23,6 +23,7 @@ class ResourceKtTest {
                         "Test Done",
                         errorResult.exception.message,
                     )
+
                     Resource.Loading,
                     is Resource.Success,
                         -> throw IllegalStateException(

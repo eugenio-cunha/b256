@@ -27,10 +27,10 @@ object DataStoreModule {
             migrations = listOf(
                 SharedPreferencesMigration(
                     context = context,
-                    sharedPreferencesName = SHARED_PREFERENCES_NAME
-                )
+                    sharedPreferencesName = SHARED_PREFERENCES_NAME,
+                ),
             ),
-            produceFile = { context.preferencesDataStoreFile(SHARED_PREFERENCES_NAME) }
+            produceFile = { context.preferencesDataStoreFile(SHARED_PREFERENCES_NAME) },
         )
 
     @Provides

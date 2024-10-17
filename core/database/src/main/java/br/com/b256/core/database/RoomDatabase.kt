@@ -11,11 +11,11 @@ import br.com.b256.core.database.model.SettingsEntity
     version = 1,
     entities = [SettingsEntity::class],
     autoMigrations = [],
-    exportSchema = true
+    exportSchema = true,
 
-)
+    )
 @TypeConverters(
-    InstantConverter::class
+    InstantConverter::class,
 )
 abstract class RoomDatabase : RoomDatabase() {
     abstract fun settings(): SettingsDao
