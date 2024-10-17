@@ -3,8 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.core.common)
-
+    implementation(libs.kotlinx.datetime)
     testImplementation(libs.kotlin.test)
     testImplementation(libs.kotlinx.coroutines.test)
 }

@@ -12,8 +12,10 @@ data object HomeRoute
 
 fun NavController.navigateToHome(options: NavOptions? = null) = navigate(route = HomeRoute, options)
 
-fun NavGraphBuilder.homeScreen() {
+fun NavGraphBuilder.homeScreen(
+    onShowSnackbar: suspend (String, String?) -> Boolean,
+) {
     composable<HomeRoute> {
-        HomeScreen()
+        HomeScreen(onShowSnackbar = onShowSnackbar)
     }
 }

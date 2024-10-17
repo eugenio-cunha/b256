@@ -11,6 +11,7 @@ import br.com.b256.ui.B256AppState
 fun B256NavHost(
     modifier: Modifier = Modifier,
     appState: B256AppState,
+    onShowSnackbar: suspend (String, String?) -> Boolean,
 ){
     val navController = appState.navController
     NavHost(
@@ -18,6 +19,6 @@ fun B256NavHost(
         navController = navController,
         startDestination = HomeRoute
     ) {
-        homeScreen()
+        homeScreen(onShowSnackbar = onShowSnackbar,)
     }
 }

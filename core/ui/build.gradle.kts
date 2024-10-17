@@ -8,6 +8,7 @@ android {
 }
 
 dependencies {
+    api(libs.kotlinx.datetime)
     implementation(projects.core.designsystem)
 
     implementation(libs.coil.kt)

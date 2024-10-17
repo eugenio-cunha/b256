@@ -1,6 +1,10 @@
 plugins {
-    alias(libs.plugins.b256.jvm.library)
+    alias(libs.plugins.b256.android.library)
     alias(libs.plugins.b256.hilt)
+}
+
+android {
+    namespace = "br.com.b256.core.common"
 }
 
 dependencies {

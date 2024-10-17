@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Bootstrap</string>
+    <string name="not_connected">⚠️ Você não está conectado à internet</string>
 </resources>
