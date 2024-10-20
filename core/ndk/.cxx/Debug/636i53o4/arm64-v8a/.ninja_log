@@ -1,0 +1,7 @@
+# ninja log v5
+0	531	1729443115055834331	CMakeFiles/ndk.dir/ndk.cpp.o	5a3d8901f818d70d
+0	787	1729443916194753701	/Users/genio/B256/bootstrap/core/ndk/build/intermediates/cxx/Debug/636i53o4/obj/arm64-v8a/libndk.so	4b138ba36972b599
+0	410	1729444341202607275	CMakeFiles/ndk.dir/ndk.cpp.o	5a3d8901f818d70d
+410	571	1729444341368673422	/Users/genio/B256/bootstrap/core/ndk/build/intermediates/cxx/Debug/636i53o4/obj/arm64-v8a/libndk.so	4b138ba36972b599
+0	255	1729444402230950532	CMakeFiles/ndk.dir/ndk.cpp.o	5a3d8901f818d70d
+255	394	1729444402373243074	/Users/genio/B256/bootstrap/core/ndk/build/intermediates/cxx/Debug/636i53o4/obj/arm64-v8a/libndk.so	4b138ba36972b599

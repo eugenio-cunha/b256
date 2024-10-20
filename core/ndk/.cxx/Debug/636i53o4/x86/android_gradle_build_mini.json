@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "/Users/genio/B256/bootstrap/core/ndk/src/main/cpp/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/genio/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/genio/B256/bootstrap/core/ndk/.cxx/Debug/636i53o4/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/genio/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/genio/B256/bootstrap/core/ndk/.cxx/Debug/636i53o4/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "ndk::@6890427a1f51a3e7e1df": {
+      "artifactName": "ndk",
+      "abi": "x86",
+      "output": "/Users/genio/B256/bootstrap/core/ndk/build/intermediates/cxx/Debug/636i53o4/obj/x86/libndk.so",
+      "runtimeFiles": []
+    }
+  }
+}

@@ -40,3 +40,4 @@ include(":core:notification")
 
 include(":feature:home")
 include(":feature:settings")
+include(":core:ndk")

@@ -1,0 +1,3 @@
+/Users/genio/B256/bootstrap/core/ndk/.cxx/Debug/636i53o4/arm64-v8a/CMakeFiles/ndk.dir
+/Users/genio/B256/bootstrap/core/ndk/.cxx/Debug/636i53o4/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/genio/B256/bootstrap/core/ndk/.cxx/Debug/636i53o4/arm64-v8a/CMakeFiles/rebuild_cache.dir

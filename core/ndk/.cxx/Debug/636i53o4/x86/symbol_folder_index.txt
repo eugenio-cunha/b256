@@ -1,0 +1,1 @@
+/Users/genio/B256/bootstrap/core/ndk/build/intermediates/cxx/Debug/636i53o4/obj/x86
