@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import br.com.b256.core.ui.component.Camera
 import kotlinx.coroutines.launch
 
 
@@ -36,21 +37,13 @@ internal fun HomeScreen(
     onShowSnackbar: suspend (String, String?) -> Boolean,
 ) {
     val coroutineScope = rememberCoroutineScope()
-    Box(
-        modifier = modifier
-            .fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Button(
-            onClick = {
-                coroutineScope.launch {
-                    onShowSnackbar("home", "back")
-                }
-            },
-        ) {
-            Text(
-                text = "Home",
-            )
-        }
-    }
+    Camera(
+        modifier = modifier.fillMaxSize(),
+        onCaptureError = {},
+        onCaptureSuccess = {
+            coroutineScope.launch {
+                onShowSnackbar("Grayscale", "fechar")
+            }
+        },
+    )
 }

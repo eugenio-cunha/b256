@@ -10,6 +10,7 @@ android {
 dependencies {
     api(libs.kotlinx.datetime)
     implementation(projects.core.designsystem)
+    implementation(projects.core.engine)
 
     implementation(libs.androidx.camera)
     implementation(libs.androidx.camera.core)

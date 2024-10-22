@@ -45,6 +45,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import br.com.b256.core.engine.Engine
 
 private fun takePicture(
     context: Context,
@@ -70,6 +71,8 @@ private fun takePicture(
                     matrix,
                     true,
                 )
+
+                Engine().grayscale(bitmap = bitmap)
 
                 onCaptureSuccess(bitmap)
             }
