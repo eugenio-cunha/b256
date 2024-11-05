@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ResourceName">
+    <cache-path
+        name="cache"
+        path="/" />
+    <external-cache-path
+        name="cache"
+        path="camera" />
+    <external-path
+        name="cache"
+        path="/" />
+    <paths>
+        <root-path
+            name="root"
+            path="." />
+    </paths>
+</paths>

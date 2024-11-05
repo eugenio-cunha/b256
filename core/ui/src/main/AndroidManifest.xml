@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="br.com.b256.core.ui">
     <uses-feature android:name="android.hardware.camera" android:required="true" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+
+    <application>
+        <activity android:name=".component.CameraXActivity"
+            android:exported="false"/>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/core_ui_file_paths" />
+        </provider>
+    </application>
 </manifest>
