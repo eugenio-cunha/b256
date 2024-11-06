@@ -70,7 +70,7 @@ fun B256App(
             val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
             // Se o usuário não estiver conectado à internet, mostre uma barra de ferramentas para informá-lo.
-            val offlineMessage = stringResource(R.string.not_connected)
+            val offlineMessage = stringResource(R.string.app_offline)
             LaunchedEffect(isOffline) {
                 if (isOffline) {
                     snackbarHostState.showSnackbar(
