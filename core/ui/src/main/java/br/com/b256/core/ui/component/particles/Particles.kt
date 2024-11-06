@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 @Composable
 fun Particles(
     modifier: Modifier = Modifier,
-    text: String?
+    text: String? = null
 ) {
     Box(
         modifier = modifier
