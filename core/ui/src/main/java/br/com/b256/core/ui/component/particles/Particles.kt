@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,13 +12,13 @@ import androidx.compose.ui.Modifier
  * Exibe uma animação de particulas nós e aresta interativa
  *
  * @param modifier O modificador a ser aplicado ao layout.
- * @param text Texto exibido no centro da animação (opcional)
+ * @param content O conteúdo do layout (opcional)
  *
  * */
 @Composable
 fun Particles(
     modifier: Modifier = Modifier,
-    text: String? = null
+    content: (@Composable () -> Unit)? = null,
 ) {
     Box(
         modifier = modifier
@@ -35,9 +34,6 @@ fun Particles(
             ),
         contentAlignment = Alignment.Center
     ) {
-        Text(
-            text = text.orEmpty(),
-            style = MaterialTheme.typography.titleLarge
-        )
+        content?.invoke()
     }
 }
