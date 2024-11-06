@@ -1,18 +1,11 @@
 package br.com.b256.feature.home
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import kotlinx.coroutines.launch
-
+import br.com.b256.core.ui.component.particles.Particles
 
 @Composable
 internal fun HomeScreen(
@@ -35,22 +28,5 @@ internal fun HomeScreen(
     uiState: HomeUiState,
     onShowSnackbar: suspend (String, String?) -> Boolean,
 ) {
-    val coroutineScope = rememberCoroutineScope()
-    Box(
-        modifier = modifier
-            .fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Button(
-            onClick = {
-                coroutineScope.launch {
-                    onShowSnackbar("home", "back")
-                }
-            },
-        ) {
-            Text(
-                text = "Home",
-            )
-        }
-    }
+    Particles()
 }
