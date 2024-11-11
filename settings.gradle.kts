@@ -20,7 +20,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Bootstrap"
+rootProject.name = "Rocket"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 

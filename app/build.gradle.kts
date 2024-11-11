@@ -1,4 +1,6 @@
 import br.com.b256.extension.B256BuildType
+import br.com.b256.extension.getVersionCode
+import br.com.b256.extension.getVersionName
 
 plugins {
     alias(libs.plugins.b256.android.application)
@@ -13,9 +15,9 @@ android {
     namespace = "br.com.b256"
 
     defaultConfig {
-        applicationId = "br.com.b256.bootstrap"
-        versionCode = 1
-        versionName = "1.0.0" // X.Y.Z; X = Major, Y = minor, Z = Patch level
+        applicationId = "br.com.b256.rocket"
+        versionCode = project.getVersionCode(diff = 0)
+        versionName = project.getVersionName(mayor = 1, minor = 0, patch = 0)
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -81,21 +83,12 @@ dependencies {
     ksp(libs.hilt.compiler)
 
     debugImplementation(libs.androidx.compose.ui.testManifest)
-//    debugImplementation(projects.uiTestHiltManifest)
 
     kspTest(libs.hilt.compiler)
-
-//    testImplementation(projects.core.dataTest)
     testImplementation(libs.hilt.android.testing)
-//    testImplementation(projects.sync.syncTest)
     testImplementation(libs.kotlin.test)
 
-//    testDemoImplementation(projects.core.screenshotTesting)
-
     androidTestImplementation(kotlin("test"))
-//    androidTestImplementation(projects.core.testing)
-//    androidTestImplementation(projects.core.dataTest)
-//    androidTestImplementation(projects.core.datastoreTest)
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.androidx.navigation.testing)
     androidTestImplementation(libs.androidx.compose.ui.test)
