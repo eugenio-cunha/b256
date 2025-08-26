@@ -52,7 +52,7 @@ class B256AppState(
             }
         }
 
-    val isOffline = networkMonitor.isOnline
+    val isOffline = networkMonitor.isAvailable
         .map(Boolean::not)
         .stateIn(
             scope = coroutineScope,

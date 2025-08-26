@@ -16,7 +16,6 @@ dependencies {
     implementation(libs.androidx.camera.view)
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.androidx.camera.extension)
-    implementation(libs.androidx.browser)
     implementation(libs.accompanist.permissions)
     implementation(libs.coil.kt)
     implementation(libs.coil.kt.compose)

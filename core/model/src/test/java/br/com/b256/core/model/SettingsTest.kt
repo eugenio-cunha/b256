@@ -1,5 +1,6 @@
 package br.com.b256.core.model
 
+import br.com.b256.core.model.enums.Theme
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test

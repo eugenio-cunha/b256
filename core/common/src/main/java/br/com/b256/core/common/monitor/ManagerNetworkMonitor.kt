@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 internal class ManagerNetworkMonitor @Inject constructor(
@@ -25,7 +26,7 @@ internal class ManagerNetworkMonitor @Inject constructor(
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
 ) : NetworkMonitor {
 
-    override val isOnline: Flow<Boolean> = callbackFlow {
+    override val isAvailable: Flow<Boolean> = callbackFlow {
         trace("NetworkMonitor.callbackFlow") {
             val connectivityManager = context.getSystemService<ConnectivityManager>()
             if (connectivityManager == null) {
@@ -35,8 +36,8 @@ internal class ManagerNetworkMonitor @Inject constructor(
             }
 
             /**
-             * The callback's methods are invoked on changes to *any* network matching the [NetworkRequest],
-             * not just the active network. So we can simply track the presence (or absence) of such [Network].
+             * Os métodos do retorno de chamada são invocados em alterações em *qualquer* rede que corresponda à [NetworkRequest],
+             * não apenas na rede ativa. Assim, podemos simplesmente rastrear a presença (ou ausência) dessa [Network].
              */
             val callback = object : NetworkCallback() {
 
@@ -61,7 +62,7 @@ internal class ManagerNetworkMonitor @Inject constructor(
             }
 
             /**
-             * Sends the latest connectivity status to the underlying channel.
+             * Envia o status de conectividade mais recente para o canal subjacente.
              */
             channel.trySend(connectivityManager.isCurrentlyConnected())
 
@@ -73,6 +74,11 @@ internal class ManagerNetworkMonitor @Inject constructor(
         .flowOn(ioDispatcher)
         .conflate()
 
+    override val isUnavailable: Flow<Boolean> = isAvailable.map { connected -> !connected }
+
+    /**
+     * Retorna true se a rede ativa tiver capacidade de internet.
+     */
     private fun ConnectivityManager.isCurrentlyConnected() = activeNetwork
         ?.let(::getNetworkCapabilities)
         ?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ?: false

@@ -1,6 +1,6 @@
 package br.com.b256.core.data.repository
 
-import br.com.b256.core.common.Resource
+import br.com.b256.core.model.Resource
 import br.com.b256.core.model.Pong
 import br.com.b256.core.network.service.Service
 import kotlinx.coroutines.flow.Flow

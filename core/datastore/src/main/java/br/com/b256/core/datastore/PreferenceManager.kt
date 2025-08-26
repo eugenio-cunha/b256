@@ -5,8 +5,9 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
+import br.com.b256.core.model.Session
 import br.com.b256.core.model.Settings
-import br.com.b256.core.model.Theme
+import br.com.b256.core.model.enums.Theme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -33,6 +34,24 @@ class PreferenceManager @Inject constructor(
         }
     }
 
+    override fun getSession(): Flow<Session?> {
+        return dataStore.data.catch {
+            emit(emptyPreferences())
+        }.map {
+            it[Keys.SESSION_TOKEN]?.let { token ->
+                Session(
+                    token = token,
+                )
+            }
+        }
+    }
+
+    override suspend fun setSession(value: Session) {
+        dataStore.edit {
+            it[Keys.SESSION_TOKEN] = value.token
+        }
+    }
+
     override fun getTheme(): Flow<Theme> {
         return dataStore.data.catch {
             emit(emptyPreferences())
@@ -47,8 +66,15 @@ class PreferenceManager @Inject constructor(
         }
     }
 
+    override suspend fun clean() {
+        dataStore.edit {
+            it.remove(key = Keys.SESSION_TOKEN)
+        }
+    }
+
     private object Keys {
         val SETTINGS_BIOMETRICS = stringPreferencesKey("settings_biometrics")
         val SETTINGS_THEME = stringPreferencesKey("settings_theme")
+        val SESSION_TOKEN = stringPreferencesKey("session_token")
     }
 }

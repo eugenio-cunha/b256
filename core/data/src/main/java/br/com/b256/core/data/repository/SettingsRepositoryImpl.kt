@@ -2,7 +2,7 @@ package br.com.b256.core.data.repository
 
 import br.com.b256.core.datastore.Preference
 import br.com.b256.core.model.Settings
-import br.com.b256.core.model.Theme
+import br.com.b256.core.model.enums.Theme
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

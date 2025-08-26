@@ -1,5 +1,10 @@
-package br.com.b256.core.model
+package br.com.b256.core.model.enums
 
+/**
+ * Representa os temas disponíveis para a aplicação.
+ *
+ * Cada tema possui um [value] de string correspondente que pode ser usado para armazenamento ou comunicação.
+ */
 enum class Theme(val value: String) {
     LIGHT(value = "light"),
     DARK(value = "dark"),

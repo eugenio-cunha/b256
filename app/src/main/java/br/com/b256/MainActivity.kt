@@ -23,7 +23,7 @@ import br.com.b256.MainActivityUiState.Success
 import br.com.b256.core.common.monitor.NetworkMonitor
 import br.com.b256.core.common.monitor.TimeZoneMonitor
 import br.com.b256.core.designsystem.theme.B256Theme
-import br.com.b256.core.model.Theme
+import br.com.b256.core.model.enums.Theme
 import br.com.b256.core.ui.LocalTimeZone
 import br.com.b256.ui.B256App
 import br.com.b256.ui.rememberB256AppState
@@ -122,13 +122,13 @@ private fun shouldUseDarkTheme(uiState: MainActivityUiState): Boolean = when (ui
 }
 
 /**
- * O light scrim padrão, conforme definido pelo androidx e pela plataforma:
+ * O light scrim padrão, conforme definido pelo androidx e pela plataforma: Resultado = um branco semi-transparente.
  * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt;l=35-38;drc=27e7d52e8604a080133e8b842db10c89b4482598
  */
 private val lightScrim = android.graphics.Color.argb(0xe6, 0xFF, 0xFF, 0xFF)
 
 /**
- * O dark scrim padrão, conforme definido pelo androidx e pela plataforma:
+ * O dark scrim padrão, conforme definido pelo androidx e pela plataforma: Resultado = um preto/cinza-escuro semi-transparente.
  * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt;l=40-44;drc=27e7d52e8604a080133e8b842db10c89b4482598
  */
 private val darkScrim = android.graphics.Color.argb(0x80, 0x1b, 0x1b, 0x1b)
