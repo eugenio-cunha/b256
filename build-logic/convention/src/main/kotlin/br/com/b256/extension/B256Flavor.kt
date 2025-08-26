@@ -21,18 +21,22 @@ enum class B256Flavor(val dimension: FlavorDimension, val applicationIdSuffix: S
 
 fun configureFlavors(
     commonExtension: CommonExtension<*, *, *, *, *, *>,
-    flavorConfigurationBlock: ProductFlavor.(flavor: B256Flavor) -> Unit = {}
+    flavorConfigurationBlock: ProductFlavor.(flavor: B256Flavor) -> Unit = {},
 ) {
     commonExtension.apply {
-        flavorDimensions += FlavorDimension.contentType.name
+        FlavorDimension.values().forEach { flavorDimension ->
+            flavorDimensions += flavorDimension.name
+        }
+
         productFlavors {
-            B256Flavor.values().forEach {
-                create(it.name) {
-                    dimension = it.dimension.name
-                    flavorConfigurationBlock(this, it)
+            B256Flavor.values().forEach { flavor ->
+                register(flavor.name) {
+                    dimension = flavor.dimension.name
+                    flavorConfigurationBlock(this, flavor)
+
                     if (this@apply is ApplicationExtension && this is ApplicationProductFlavor) {
-                        if (it.applicationIdSuffix != null) {
-                            applicationIdSuffix = it.applicationIdSuffix
+                        if (flavor.applicationIdSuffix != null) {
+                            applicationIdSuffix = flavor.applicationIdSuffix
                         }
                     }
                 }

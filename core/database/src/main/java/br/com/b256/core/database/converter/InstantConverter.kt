@@ -1,9 +1,11 @@
 package br.com.b256.core.database.converter
 
 import androidx.room.TypeConverter
-import kotlinx.datetime.Instant
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 
+@OptIn(ExperimentalTime::class)
 class InstantConverter {
     @TypeConverter
     fun fromInstant(value: Instant?): Long? {

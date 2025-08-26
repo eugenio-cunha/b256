@@ -75,7 +75,7 @@ internal abstract class PrintApkLocationTask : DefaultTask() {
             }
         } ?: throw RuntimeException("Cannot check androidTest sources")
 
-        // Don't print APK location if there are no androidTest source files
+        // Não imprima a localização do APK se não houver arquivos de origem do androidTest
         if (!hasFiles) return
 
         val builtArtifacts = builtArtifactsLoader.get().load(apkFolder.get())

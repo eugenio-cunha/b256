@@ -1,6 +1,4 @@
 import br.com.b256.extension.B256BuildType
-import br.com.b256.extension.getVersionCode
-import br.com.b256.extension.getVersionName
 
 plugins {
     alias(libs.plugins.b256.android.application)
@@ -16,8 +14,8 @@ android {
 
     defaultConfig {
         applicationId = "br.com.b256.rocket"
-        versionCode = project.getVersionCode(diff = 0)
-        versionName = project.getVersionName(mayor = 1, minor = 0, patch = 0)
+        versionCode = 1
+        versionName = "1.0.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -34,7 +32,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
