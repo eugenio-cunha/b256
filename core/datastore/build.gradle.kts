@@ -15,6 +15,7 @@ android {
 dependencies {
     implementation(projects.core.model)
     implementation(projects.core.common)
+    implementation(projects.core.protobuf)
     implementation(libs.androidx.dataStore)
 
     testImplementation(libs.kotlinx.coroutines.test)

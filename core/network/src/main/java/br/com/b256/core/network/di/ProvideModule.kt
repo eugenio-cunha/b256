@@ -2,12 +2,12 @@ package br.com.b256.core.network.di
 
 import android.content.Context
 import androidx.tracing.trace
-import br.com.b256.core.datastore.Preference
+import br.com.b256.core.datastore.CookieStore
 import br.com.b256.core.network.BuildConfig
-import br.com.b256.core.network.interceptor.AuthorizationInterceptor
-import br.com.b256.core.network.interceptor.ExceptionInterceptor
+import br.com.b256.core.network.converter.InstantSerializer
 import br.com.b256.core.network.service.Service
 import br.com.b256.core.network.service.ServiceManager
+import br.com.b256.core.network.util.CookieManager
 import coil3.ImageLoader
 import coil3.svg.SvgDecoder
 import coil3.util.DebugLogger
@@ -18,7 +18,9 @@ import dagger.Reusable
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
 import okhttp3.Call
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -26,8 +28,10 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
-import java.util.concurrent.TimeUnit
+import javax.inject.Qualifier
 import javax.inject.Singleton
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 /**
  * Módulo Dagger Hilt que fornece dependências de rede para o aplicativo.
@@ -48,6 +52,7 @@ internal object ProvideModule {
      *
      * @return Uma instância de [Converter.Factory] configurada para processamento JSON.
      */
+    @OptIn(ExperimentalTime::class)
     @Provides
     @Singleton
     fun providesNetworkJson(): Converter.Factory {
@@ -60,22 +65,49 @@ internal object ProvideModule {
 
             // APIs que não seguem estritamente o padrão JSON o parser se torna mais tolerante
             isLenient = true
+
+            // Serializa/Deserializa o tipo Instant/String ISO-8601
+            serializersModule = SerializersModule {
+                contextual(Instant::class, InstantSerializer)
+            }
         }
         return json.asConverterFactory("application/json".toMediaType())
     }
 
     /**
-     * Fornece uma instância singleton de [Call.Factory] para chamadas de rede.
+     * Fornece uma instância singleton de [CookieManager].
      *
-     * Esta factory é configurada com um interceptor de log HTTP que registra o corpo
-     * das requisições e respostas em builds de depuração.
+     * O [CookieManager] é responsável por gerenciar a persistência e a recuperação de cookies
+     * utilizando um [CookieStore] e um [CoroutineScope] dedicado para operações assíncronas.
      *
-     * @return Uma instância de [Call.Factory] configurada.
+     * @param store O armazenamento onde os cookies serão persistidos.
+     * @param scope O escopo de corrotina utilizado para as operações do gerenciador de cookies.
+     * @return Uma instância de [CookieManager] configurada.
      */
     @Provides
     @Singleton
-    fun providesOkHttpCallFactory(): Call.Factory = trace("B256OkHttpClient") {
+    fun providesCookieManager(
+        store: CookieStore,
+        @CookieScope scope: CoroutineScope,
+    ): CookieManager =
+        CookieManager(store = store, scope = scope)
+
+
+    /**
+     * Fornece a instância de [Call.Factory] do OkHttp configurada para o aplicativo.
+     *
+     * Esta configuração inclui:
+     * - Gerenciamento de cookies através do [CookieManager].
+     * - Logging de rede configurado para o nível [HttpLoggingInterceptor.Level.BODY] apenas em builds de depuração (debug).
+     *
+     * @param cookieManager O gerenciador responsável por persistir e recuperar cookies de rede.
+     * @return Uma instância de [Call.Factory] (OkHttpClient) configurada.
+     */
+    @Provides
+    @Singleton
+    fun providesOkHttpCallFactory(cookieManager: CookieManager): Call.Factory =
         OkHttpClient.Builder()
+            .cookieJar(cookieManager)
             .addInterceptor(
                 HttpLoggingInterceptor()
                     .apply {
@@ -85,47 +117,29 @@ internal object ProvideModule {
                     },
             )
             .build()
-    }
+
 
     /**
-     * Fornece uma instância do Retrofit para realizar chamadas de API.
+     * Fornece uma instância configurada do [Retrofit] para realizar chamadas de rede.
      *
-     * Esta função configura o Retrofit com um OkHttpClient personalizado que inclui:
-     * - Tempos limite de conexão, leitura e escrita de 180 segundos.
-     * - Um [ExceptionInterceptor] para lidar com exceções de rede.
-     * - Um [AuthorizationInterceptor] para adicionar cabeçalhos de autorização às requisições, usando a [preference] fornecida para recuperar tokens.
+     * O cliente é configurado com a URL base definida no [BuildConfig.BASE_URL], a factory de
+     * conversão de dados e a factory de chamadas HTTP.
      *
-     * A instância do Retrofit é configurada com:
-     * - A URL base de [BuildConfig.BASE_URL].
-     * - O [converterFactory] fornecido para serializar e desserializar respostas da API.
-     *
-     * @param preference A instância de [Preference] usada para recuperar tokens de autorização.
-     * @param converterFactory O [Converter.Factory] usado para serialização e desserialização JSON.
-     * @return Uma instância configurada do [Retrofit].
-     * @throws IllegalArgumentException se [BuildConfig.BASE_URL] for nulo.
+     * @param converterFactory A factory responsável pela serialização e desserialização dos dados (JSON).
+     * @param okHttpCallFactory A factory de chamadas HTTP (OkHttpClient) para processar as requisições.
+     * @return Uma instância de [Retrofit] configurada.
+     * @throws IllegalArgumentException Se a URL base for nula.
      */
     @Provides
     @Singleton
     internal fun providesRetrofit(
-        preference: Preference,
         converterFactory: Converter.Factory,
-    ): Retrofit {
-        val client = OkHttpClient.Builder()
-            .apply {
-                connectTimeout(180, TimeUnit.SECONDS)
-                readTimeout(180, TimeUnit.SECONDS)
-                writeTimeout(180, TimeUnit.SECONDS)
-                addInterceptor(ExceptionInterceptor())
-                addInterceptor(AuthorizationInterceptor(preference = preference))
-            }
-            .build()
-
-        return Retrofit.Builder()
-            .baseUrl(requireNotNull(BuildConfig.BASE_URL) { "A URL base da API não pode ser nula!" })
-            .addConverterFactory(converterFactory)
-            .client(client)
-            .build()
-    }
+        okHttpCallFactory: Call.Factory,
+    ): Retrofit = Retrofit.Builder()
+        .baseUrl(requireNotNull(BuildConfig.BASE_URL) { "A URL base da API não pode ser nula!" })
+        .addConverterFactory(converterFactory)
+        .callFactory(okHttpCallFactory)
+        .build()
 
     /**
      * Como estamos exibindo SVGs no aplicativo, o Coil precisa de um ImageLoader que suporte este
@@ -160,7 +174,7 @@ internal object ProvideModule {
  */
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class BindModule {
+internal abstract class BindModule {
 
     /**
      * Fornece uma instância de [Service] vinculando a implementação [ServiceManager].
@@ -172,3 +186,10 @@ abstract class BindModule {
     @Reusable
     abstract fun bindService(impl: ServiceManager): Service
 }
+
+/**
+ * Qualifier para identificar o [CoroutineScope] específico de cookies.
+ */
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+internal annotation class CookieScope

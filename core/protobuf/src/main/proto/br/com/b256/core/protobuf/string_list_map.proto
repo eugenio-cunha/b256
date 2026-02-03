@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option java_package = "br.com.b256.core.datastore";
+option java_multiple_files = true;
+
+/**
+ * Representa uma lista de strings.
+ *
+ * Esta mensagem existe porque o Protobuf não permite o uso de
+ * `repeated` diretamente como valor de um `map`.
+ *
+ * Exemplo de uso:
+ * - Lista de tags
+ * - Lista de permissões
+ * - Lista de códigos ou identificadores
+ */
+
+message StringListProto {
+  // Coleção ordenada de valores do tipo string.
+  repeated string values = 1;
+}
+
+/**
+ * Representa um mapeamento de uma chave string para uma lista de strings.
+ *
+ * Modela semanticamente a estrutura:
+ *   Map<String, List<String>>
+ *
+ * Em Kotlin/Java, este tipo pode ser convertido para:
+ *   ConcurrentHashMap<String, MutableList<String>>
+ *
+ * Observação:
+ * - A semântica de concorrência não é preservada pelo Protobuf
+ * - A escolha entre Map, MutableMap ou ConcurrentHashMap
+ *   deve ser feita na camada de desserialização
+ */
+message StringListMapProto {
+  // Entradas do mapa onde:
+  // - a chave identifica o agrupamento
+  // - o valor contém a lista de strings associadas à chave
+  map<string, StringListProto> entries = 1;
+}

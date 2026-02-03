@@ -12,7 +12,7 @@ import kotlin.time.toJavaInstant
 
 /**
  * Um [kotlinx.serialization.KSerializer] para [kotlin.time.Instant] que serializa e desserializa objetos [kotlin.time.Instant]
- * para e a partir de sua representação de string ISO 8601.
+ * para e a partir de sua representação de string ISO-8601.
  *
  * Este serializador é usado pelo kotlinx.serialization para converter objetos [kotlin.time.Instant]
  * quando eles fazem parte de um modelo de dados sendo serializado ou desserializado.
@@ -21,7 +21,7 @@ import kotlin.time.toJavaInstant
  * para serialização.
  */
 @OptIn(ExperimentalTime::class)
-object InstantSerializer : KSerializer<Instant> {
+internal object InstantSerializer : KSerializer<Instant> {
     override val descriptor: SerialDescriptor =
         PrimitiveSerialDescriptor("Instant", PrimitiveKind.STRING)
 
@@ -32,7 +32,7 @@ object InstantSerializer : KSerializer<Instant> {
      * @return O objeto Instant desserializado.
      */
     override fun deserialize(decoder: Decoder): Instant {
-        return Instant.Companion.parse(decoder.decodeString())
+        return Instant.parse(decoder.decodeString())
     }
 
     /**
