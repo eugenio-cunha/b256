@@ -9,7 +9,13 @@ android {
 
 dependencies {
     api(libs.kotlinx.datetime)
+    implementation(projects.core.model)
     implementation(projects.core.designsystem)
+
+    // ANDROIDX
+    api(libs.androidx.core.ktx)
+    api(libs.androidx.activity.compose)
+    api(libs.androidx.lifecycle.runtimeCompose)
 
     implementation(libs.androidx.camera)
     implementation(libs.androidx.camera.core)

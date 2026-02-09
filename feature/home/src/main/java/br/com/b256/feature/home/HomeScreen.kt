@@ -1,6 +1,8 @@
 package br.com.b256.feature.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -15,10 +17,19 @@ internal fun HomeScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    LaunchedEffect(Unit) {
+        viewModel.effect.collect { effect ->
+            when(effect){
+                is HomeEffect.NavigateTo -> {}
+                is HomeEffect.ShowSnackbar -> onShowSnackbar(effect.message, null)
+            }
+        }
+    }
+
     HomeScreen(
         modifier = modifier,
         uiState = uiState,
-        onShowSnackbar = onShowSnackbar,
+        handleIntent = viewModel::dispatch
     )
 }
 
@@ -26,7 +37,11 @@ internal fun HomeScreen(
 internal fun HomeScreen(
     modifier: Modifier = Modifier,
     uiState: HomeUiState,
-    onShowSnackbar: suspend (String, String?) -> Boolean,
+    handleIntent: (intent: HomeIntent) -> Unit
 ) {
-    Particles()
+    Particles(
+        modifier = modifier.clickable {
+            handleIntent(HomeIntent.Load)
+        }
+    )
 }

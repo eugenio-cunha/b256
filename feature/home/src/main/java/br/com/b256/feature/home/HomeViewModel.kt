@@ -1,23 +1,27 @@
 package br.com.b256.feature.home
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import br.com.b256.core.ui.base.BaseViewModel
 import br.com.core.b256.domain.GetSettingsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+internal class HomeViewModel @Inject constructor(
     private val getSettingsUseCase: GetSettingsUseCase,
-) : ViewModel() {
-    val uiState: StateFlow<HomeUiState> = getSettingsUseCase().map(HomeUiState::Success)
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = HomeUiState.Loading,
-        )
+) : BaseViewModel<HomeIntent, HomeUiState, HomeEffect>(HomeUiState()) {
+
+    override suspend fun handleIntent(intent: HomeIntent) {
+        when (intent) {
+            is HomeIntent.ItemClicked -> {}
+            HomeIntent.Load -> loadData()
+        }
+    }
+
+    private suspend fun loadData() {
+        sendEffect(HomeEffect.ShowSnackbar("Dados carregados"))
+//        getSettingsUseCase().collect { settings ->
+//
+//            reduce { HomeUiState(settings = settings, isLoading = false) }
+//        }
+    }
 }
